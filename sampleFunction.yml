@@ -1,0 +1,7 @@
+TEST:
+  handler: src/handlers/TEST.handleEvent
+  description: Get Swagger documentation
+  events:
+    - http:
+        path: TEST
+        method: get

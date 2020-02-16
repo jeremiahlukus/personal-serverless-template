@@ -1,0 +1,21 @@
+Resources:
+  SlsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      BillingMode: PAY_PER_REQUEST
+      TableName: ${self:custom.tableName}
+      AttributeDefinitions:
+      - AttributeName: unitId
+        AttributeType: S
+      - AttributeName: id
+        AttributeType: S
+      KeySchema:
+      - AttributeName: unitId
+        KeyType: HASH
+      GlobalSecondaryIndexes:
+      - IndexName: idIndex
+        KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+        Projection:
+          ProjectionType: ALL

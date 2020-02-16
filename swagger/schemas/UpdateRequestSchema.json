@@ -1,0 +1,23 @@
+{
+    "type": "object",
+    "properties": {
+        "updatedOn": {
+            "type": "string",
+            "format": "isoDate"
+        },
+        "username": {
+            "type": "string",
+            "format": "alphanum",
+            "minLength": 3,
+            "maxLength": 30
+        },
+        "email": {
+            "type": "string",
+            "format": "email"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "username"
+    ]
+}

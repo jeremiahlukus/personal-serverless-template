@@ -1,0 +1,15 @@
+info:
+  version: "1" # see note above about this being ignored
+  title: " Template Documentation" # see note above about this being ignored
+  description: "Documentation for create, update, delete, getById and getByUnitId"
+models:
+  -
+    name: CreateRequestSchema
+    description: "Model for creating slsObjects"
+    contentType: "application/json"
+    schema: ${file(swagger/schemas/CreateRequestSchema.json)}
+  -
+    name: UpdateRequestSchema
+    description: "Model for updating slsObjects"
+    contentType: "application/json"
+    schema: ${file(swagger/schemas/UpdateRequestSchema.json)}

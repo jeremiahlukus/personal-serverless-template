@@ -1,0 +1,113 @@
+healthcheck:
+  handler: src/handlers/healthcheck.healthcheck
+  description: Healthcheck to ensure the service is up
+  events:
+    - http:
+        path: healthcheck
+        method: get
+        documentation:
+          summary: "Healthcheck"
+          description: "Check for healthcheck"
+          methodResponses:
+          -
+            statusCode: "200"
+            responseBody:
+              description: "Response body description"
+
+create:
+  handler: src/handlers/create.handleEvent
+  description: Create the slsObject
+  events:
+    - http:
+        path: ${self:service}
+        method: post
+        cors: true
+        documentation:
+          summary: "Creates something"
+          tags:
+            - "create-something"
+          requestModels:
+            "application/json": CreateRequestSchema
+          methodResponses:
+          -
+            statusCode: "201"
+            responseBody:
+              description: "Response body description"
+
+update:
+  handler: src/handlers/update.handleEvent
+  description: Update the slsObject
+  events:
+    - http:
+        path: ${self:service}/id/{id}
+        method: post
+        cors: true
+        documentation:
+          summary: "Update something"
+          description: "Updates the thing you need"
+          pathParams:
+            -
+              name: "id"
+              required: true
+              schema:
+                type: string
+          requestModels:
+            "application/json": UpdateRequestSchema
+          methodResponses:
+          -
+            statusCode: "200"
+            responseBody:
+              description: "Response body description"
+
+getById:
+  handler: src/handlers/getById.handleEvent
+  description: get slsObject by Id
+  events:
+    - http:
+        path: ${self:service}/id/{id}
+        method: get
+        cors: true
+        documentation:
+          summary: "Get by id"
+          description: "Get slsObject by Id"
+          pathParams:
+            -
+              name: "id"
+              required: true
+              schema:
+                type: string
+          methodResponses:
+          -
+            statusCode: "200"
+            responseBody:
+              description: "Response body description"
+
+delete:
+  handler: src/handlers/delete.handleEvent
+  description: delete slsObject by id
+  events:
+    - http:
+        path: ${self:service}/id/{id}
+        method: delete
+        cors: true
+        documentation:
+          summary: "Delete by id"
+          description: "Delete slsObject by id"
+          pathParams:
+            -
+              name: "id"
+              required: true
+              schema:
+                type: string
+          methodResponses:
+          -
+            statusCode: "200"
+            responseBody:
+              description: "Response body description"
+slsTemplate-test:
+  handler: src/handlers/slsTemplate-test.handleEvent
+  description: Get Swagger documentation
+  events:
+    - http:
+        path: slsTemplate-test
+        method: get

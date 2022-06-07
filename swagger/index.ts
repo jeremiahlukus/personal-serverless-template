@@ -1,15 +1,15 @@
 /* eslint-disable */
 import fs from 'fs';
-import yaml from 'js-yaml';
+import yaml from 'js-yaml'
 import map from 'lodash/map';
 import isEmpty from 'lodash/isEmpty';
 import { convert } from './convert';
 
 let schemas = {};
 try {
-    schemas = require(`../src/schemas`);
-} catch(e) {
-    console.log(e)
+  schemas = require(`../src/schemas`);
+} catch (e) {
+  console.log(e)
 }
 
 const listOfSchemas: string[] = [];
@@ -20,6 +20,7 @@ if (!fs.existsSync(schemasFolder)) {
 }
 
 try {
+
   const documentation = yaml.safeLoad(fs.readFileSync('./resources/documentation.yml', 'utf8'));
 
   if (!isEmpty(documentation) && documentation.models && !isEmpty(documentation.models)) {

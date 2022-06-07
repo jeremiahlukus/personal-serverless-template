@@ -1,4 +1,4 @@
-import Joi from '@hapi/joi';
+import Joi from 'joi';
 
 export const SomeSchema = Joi.object({
   href: Joi.string()

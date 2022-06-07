@@ -10,25 +10,27 @@ plugins:
   - serverless-plugin-aws-alerts
   - serverless-offline
   - serverless-domain-manager
-  - serverless-aws-documentation
+  - "@kakkuk/serverless-aws-apigateway-documentation"
 
 provider:
   name: aws
-  runtime: nodejs10.x
+  runtime: nodejs14.x
   region: us-east-1
   stage: ${opt:stage, 'dev'}
   deploymentBucket:
     name: ${self:custom.s3Bucket}
-  iamRoleStatements:
-    - Effect: Allow
-      Action:
-        - dynamodb:Query
-        - dynamodb:Scan
-        - dynamodb:GetItem
-        - dynamodb:PutItem
-        - dynamodb:UpdateItem
-        - dynamodb:DeleteItem
-      Resource: '*'
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource: '*'
 
   environment:
     API_BASE_URL: ${self:custom.apiBaseUrl, http://localhost:3000}
@@ -105,7 +107,7 @@ custom:
           - ${self:custom.stage}
     basicAuthUsername: 'test'
     basicAuthPassword: 'test'
-    s3Bucket: 'jeremiah'
+    s3Bucket: 'jeremiahs-sandbox'
     customDomainEnabled: false
   int1:
     apiBaseUrl:
@@ -117,12 +119,12 @@ custom:
           - ${opt:region, self:provider.region}
           - '.amazonaws.com/'
           - ${self:custom.stage}
-    basicAuthUsername: ${ssm:/<company>/slsObjects/int1/basic_auth_user, self:custom.ci.basicAuthUsername}
-    basicAuthPassword: ${ssm:/<company>/slsObjects/int1/basic_auth_pass, self:custom.ci.basicAuthUsername}
+    # basicAuthUsername: ${ssm:/<company>/slsObjects/int1/basic_auth_user, self:custom.ci.basicAuthUsername}
+    # basicAuthPassword: ${ssm:/<company>/slsObjects/int1/basic_auth_pass, self:custom.ci.basicAuthUsername}
     customDomainEnabled: true
     s3Bucket: 'jeremiah-int1'
-    certificate: '*.jeremiah.parrack.com'
-    domainName: int1-slsObjects.jeremiah.parrack.com
+    # certificate: '*.jeremiah.parrack.com'
+    # domainName: int1-slsObjects.jeremiah.parrack.com
   uat:
     apiBaseUrl:
       'Fn::Join':
@@ -133,8 +135,8 @@ custom:
           - ${opt:region, self:provider.region}
           - '.amazonaws.com/'
           - ${self:custom.stage}
-    basicAuthUsername: ${ssm:/<company>/slsObjects/int1/basic_auth_user, self:custom.ci.basicAuthUsername}
-    basicAuthPassword: ${ssm:/<company>/slsObjects/int1/basic_auth_pass, self:custom.ci.basicAuthUsername}
+    # basicAuthUsername: ${ssm:/<company>/slsObjects/int1/basic_auth_user, self:custom.ci.basicAuthUsername}
+    # basicAuthPassword: ${ssm:/<company>/slsObjects/int1/basic_auth_pass, self:custom.ci.basicAuthUsername}
     customDomainEnabled: true
     s3Bucket: 'jeremiah-uat'
     certificate: '*.jeremiah.parrack.com'
@@ -149,8 +151,8 @@ custom:
           - ${opt:region, self:provider.region}
           - '.amazonaws.com/'
           - ${self:custom.stage}
-    basicAuthUsername: ${ssm:/<company>/slsObjects/int1/basic_auth_user, self:custom.ci.basicAuthUsername}
-    basicAuthPassword: ${ssm:/<company>/slsObjects/int1/basic_auth_pass, self:custom.ci.basicAuthUsername}
+    # basicAuthUsername: ${ssm:/<company>/slsObjects/int1/basic_auth_user, self:custom.ci.basicAuthUsername}
+    # basicAuthPassword: ${ssm:/<company>/slsObjects/int1/basic_auth_pass, self:custom.ci.basicAuthUsername}
     customDomainEnabled: true
     s3Bucket: 'jeremiah-prod'
     certificate: '*.jeremiah.parrack.com'
@@ -179,12 +181,6 @@ resources:
       ServiceName:
         Description: 'Name of a service'
         Value: ${self:service}
-      BasicAuthUsername:
-        Description: 'Basic auth username'
-        Value: ${ssm:/<company>/slsObjects/int1/basic_auth_user, 'test'}
-      BasicAuthPassword:
-        Description: 'Basic auth password'
-        Value: ${ssm:/<company>/slsObjects/int1/basic_auth_pass, 'test'}
       TableName:
         Description: 'Service table name'
         Value: ${self:custom.tableName, 'tableName'}

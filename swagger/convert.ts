@@ -5,7 +5,7 @@
 /* eslint-disable no-underscore-dangle */
 import { strict as assert } from 'assert';
 import { map, omit, isNil, get, isEmpty, filter, includes, pickBy } from 'lodash';
-import { ObjectSchema, AnySchema } from '@hapi/joi';
+import { ObjectSchema, AnySchema } from 'joi';
 
 interface JoiSchema {
   allow?: any;

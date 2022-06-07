@@ -12,7 +12,7 @@ export async function create(tableName: string, request: CreateRequest): Promise
   const id = uuid();
   const unitId = request.unit.href;
   const creationDate = new Date(Date.now()).toISOString();
-  const vehicle = {
+  const user = {
     createdOn: creationDate,
     id,
     unitId,
@@ -23,7 +23,7 @@ export async function create(tableName: string, request: CreateRequest): Promise
 
   const dbRequest = {
     TableName: tableName,
-    Item: vehicle,
+    Item: user,
   };
   try {
     await dynamo.put(dbRequest);

@@ -163,7 +163,6 @@ custom:
     project: 'slsTemplate'
     application: 'Personal Serverless Template'
 resources:
-  - Transform: ALKSify
   - Conditions:
       TestEnvironment:
         !And [

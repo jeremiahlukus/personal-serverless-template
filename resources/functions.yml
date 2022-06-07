@@ -23,11 +23,16 @@ create:
         method: post
         cors: true
         documentation:
+          type: basic
           summary: "Creates something"
           tags:
             - "create-something"
           requestModels:
             "application/json": CreateRequestSchema
+          requestHeaders:
+          -
+            name: "Authorization"
+            description: "Basic <Base64 encoded user:pass>"
           methodResponses:
           -
             statusCode: "201"
@@ -53,6 +58,11 @@ update:
                 type: string
           requestModels:
             "application/json": UpdateRequestSchema
+          requestHeaders:
+          -
+            name: "Authorization"
+            description: "Basic <Base64 encoded user:pass>"
+
           methodResponses:
           -
             statusCode: "200"
@@ -76,6 +86,11 @@ getById:
               required: true
               schema:
                 type: string
+          requestHeaders:
+          -
+            name: "Authorization"
+            description: "Basic <Base64 encoded user:pass>"
+
           methodResponses:
           -
             statusCode: "200"
@@ -99,11 +114,18 @@ delete:
               required: true
               schema:
                 type: string
+          requestHeaders:
+          -
+            name: "Authorization"
+            description: "Basic <Base64 encoded user:pass>"
+
           methodResponses:
           -
             statusCode: "200"
             responseBody:
               description: "Response body description"
+
+
 slsTemplate-test:
   handler: src/handlers/slsTemplate-test.handleEvent
   description: Get Swagger documentation

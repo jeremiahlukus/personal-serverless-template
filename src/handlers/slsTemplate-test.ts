@@ -12,7 +12,7 @@ const handleEventInternal: any = async event => {
 </head>
 <body>
     <div id="swagger-ui"></div>
-    <script src="https://swagger.s3.amazonaws.com/slsTemplate/test/swagger.bundle.js"></script>
+    <script src="https://jeremiahs-sandbox.s3.amazonaws.com/slsTemplate/test/swagger.bundle.js"></script>
 </body>
 </html>`;
     return {
